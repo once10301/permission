@@ -10,99 +10,115 @@ class Permission {
     return version;
   }
 
-  static Future<List<PermissionStatus>> getPermissionStatus(List<Permissions> permissions) async {
+  static Future<List<Permissions>> getPermissionStatus(List<PermissionName> permissionNameList) async {
     List<String> list = [];
-    permissions.forEach((p) {
+    permissionNameList.forEach((p) {
       list.add(getPermissionString(p));
     });
-    final List<int> status = await _channel.invokeMethod("getPermissionStatus", {"permissions": list});
-    List<PermissionStatus> permissionStatusList = [];
-    status.forEach((i){
-      switch (i) {
+    var status = await _channel.invokeMethod("getPermissionStatus", {"permissions": list});
+    List<Permissions> permissionStatusList = [];
+    for (int i = 0; i < status.length; i++) {
+      PermissionStatus permissionStatus;
+      switch (status[i]) {
         case -1:
-          permissionStatusList.add(PermissionStatus.notAgain);
+          permissionStatus = PermissionStatus.notAgain;
           break;
         case 0:
-          permissionStatusList.add(PermissionStatus.deny);
+          permissionStatus = PermissionStatus.deny;
           break;
         case 1:
-          permissionStatusList.add(PermissionStatus.allow);
+          permissionStatus = PermissionStatus.allow;
           break;
         default:
-          permissionStatusList.add(PermissionStatus.deny);
+          permissionStatus = PermissionStatus.deny;
           break;
       }
-    });
+      permissionStatusList.add(Permissions(permissionNameList[i], permissionStatus));
+    }
     return permissionStatusList;
   }
 
-  static Future<List<PermissionStatus>> requestPermission(List<Permissions> permissions) async {
+  static Future<List<Permissions>> requestPermission(List<PermissionName> permissionNameList) async {
     List<String> list = [];
-    permissions.forEach((p) {
+    permissionNameList.forEach((p) {
       list.add(getPermissionString(p));
     });
-    final List<int> status = await _channel.invokeMethod("requestPermission", {"permissions": list});
-    List<PermissionStatus> permissionStatusList = [];
-    status.forEach((i){
-      switch (i) {
+    var status = await _channel.invokeMethod("requestPermission", {"permissions": list});
+    print(status);
+    List<Permissions> permissionStatusList = [];
+    for (int i = 0; i < status.length; i++) {
+      PermissionStatus permissionStatus;
+      switch (status[i]) {
         case -1:
-          permissionStatusList.add(PermissionStatus.notAgain);
+          permissionStatus = PermissionStatus.notAgain;
           break;
         case 0:
-          permissionStatusList.add(PermissionStatus.deny);
+          permissionStatus = PermissionStatus.deny;
           break;
         case 1:
-          permissionStatusList.add(PermissionStatus.allow);
+          permissionStatus = PermissionStatus.allow;
           break;
         default:
-          permissionStatusList.add(PermissionStatus.deny);
+          permissionStatus = PermissionStatus.deny;
           break;
       }
-    });
+      permissionStatusList.add(Permissions(permissionNameList[i], permissionStatus));
+    }
     return permissionStatusList;
+  }
+
+  static Future<bool> openSettings() async {
+    return await _channel.invokeMethod("openSettings");
   }
 }
 
 /// Enum of all available [Permission]
-enum Permissions { RecordAudio, Camera, WriteExternalStorage, ReadExternalStorage, AccessCoarseLocation, AccessFineLocation, WhenInUseLocation, AlwaysLocation, ReadContacts, Vibrate, WriteContacts }
+enum PermissionName { RecordAudio, Camera, WriteExternalStorage, ReadExternalStorage, AccessCoarseLocation, AccessFineLocation, WhenInUseLocation, AlwaysLocation, ReadContacts, Vibrate, WriteContacts }
 
 /// Permissions status enum (iOs)
 enum PermissionStatus { notAgain, deny, allow }
 
-String getPermissionString(Permissions permissions) {
+class Permissions {
+  PermissionName permissionName;
+  PermissionStatus permissionStatus;
+
+  Permissions(this.permissionName, this.permissionStatus);
+}
+
+String getPermissionString(PermissionName permissions) {
   String res;
   switch (permissions) {
-    case Permissions.Camera:
+    case PermissionName.Camera:
       res = "CAMERA";
       break;
-    case Permissions.RecordAudio:
+    case PermissionName.RecordAudio:
       res = "RECORD_AUDIO";
       break;
-    case Permissions.WriteExternalStorage:
+    case PermissionName.WriteExternalStorage:
       res = "WRITE_EXTERNAL_STORAGE";
       break;
-    case Permissions.ReadExternalStorage:
+    case PermissionName.ReadExternalStorage:
       res = "READ_EXTERNAL_STORAGE";
       break;
-    case Permissions.AccessFineLocation:
+    case PermissionName.AccessFineLocation:
       res = "ACCESS_FINE_LOCATION";
       break;
-    case Permissions.AccessCoarseLocation:
+    case PermissionName.AccessCoarseLocation:
       res = "ACCESS_COARSE_LOCATION";
       break;
-    case Permissions.WhenInUseLocation:
+    case PermissionName.WhenInUseLocation:
       res = "WHEN_IN_USE_LOCATION";
       break;
-    case Permissions.AlwaysLocation:
+    case PermissionName.AlwaysLocation:
       res = "ALWAYS_LOCATION";
       break;
-    case Permissions.ReadContacts:
+    case PermissionName.ReadContacts:
       res = "READ_CONTACTS";
       break;
-    case Permissions.Vibrate:
+    case PermissionName.Vibrate:
       res = "VIBRATE";
       break;
-    case Permissions.WriteContacts:
+    case PermissionName.WriteContacts:
       res = "WRITE_CONTACTS";
       break;
   }

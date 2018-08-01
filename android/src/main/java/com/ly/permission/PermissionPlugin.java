@@ -9,6 +9,7 @@ import android.provider.Settings;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +45,12 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
                 break;
             case "getPermissionStatus":
                 permissions = call.argument("permissions");
-                result.success(getPermissions(permissions));
+                result.success(get(permissions));
                 break;
             case "requestPermission":
-                permissions = call.argument("permission");
+                permissions = call.argument("permissions");
                 this.result = result;
-                requestPermissions(permissions);
+                request(permissions);
                 break;
             case "openSettings":
                 openSettings();
@@ -61,7 +62,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
         }
     }
 
-    private List<Integer> getPermissions(List<String> permissions) {
+    private List<Integer> get(List<String> permissions) {
         List<Integer> intList = new ArrayList<>();
         Activity activity = registrar.activity();
         for (String permission : permissions) {
@@ -79,7 +80,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
         return intList;
     }
 
-    private void requestPermissions(List<String> permissionList) {
+    private void request(List<String> permissionList) {
         Activity activity = registrar.activity();
         String[] permissions = new String[permissionList.size()];
         for (int i = 0; i < permissionList.size(); i++) {
@@ -156,6 +157,6 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
             }
             result.success(intList);
         }
-        return false;
+        return true;
     }
 }
