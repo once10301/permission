@@ -73,7 +73,7 @@ class Permission {
 }
 
 /// Enum of all available [Permission]
-enum PermissionName { RecordAudio, Camera, WriteExternalStorage, ReadExternalStorage, AccessCoarseLocation, AccessFineLocation, WhenInUseLocation, AlwaysLocation, ReadContacts, Vibrate, WriteContacts }
+enum PermissionName { RecordAudio, Camera, WriteExternalStorage, ReadExternalStorage, AccessCoarseLocation, AccessFineLocation, WhenInUseLocation, AlwaysLocation, ReadContacts, Vibrate, WriteContacts, ReadSms, ReceiveSms, CallPhone}
 
 /// Permissions status enum (iOs)
 enum PermissionStatus { notAgain, deny, allow }
@@ -120,6 +120,15 @@ String getPermissionString(PermissionName permissions) {
       break;
     case PermissionName.WriteContacts:
       res = "WRITE_CONTACTS";
+      break;
+    case PermissionName.ReadSms:
+      res = "READ_SMS";
+      break;
+    case PermissionName.ReceiveSms:
+      res = "RECEIVE_SMS";
+      break;
+    case PermissionName.CallPhone:
+      res = "CALL_PHONE";
       break;
   }
   return res;
