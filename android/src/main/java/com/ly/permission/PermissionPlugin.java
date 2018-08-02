@@ -9,7 +9,6 @@ import android.provider.Settings;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +46,10 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
                 permissions = call.argument("permissions");
                 result.success(get(permissions));
                 break;
-            case "requestPermission":
+            case "requestPermissions":
                 permissions = call.argument("permissions");
                 this.result = result;
-                request(permissions);
+                requests(permissions);
                 break;
             case "openSettings":
                 openSettings();
@@ -80,7 +79,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
         return intList;
     }
 
-    private void request(List<String> permissionList) {
+    private void requests(List<String> permissionList) {
         Activity activity = registrar.activity();
         String[] permissions = new String[permissionList.size()];
         for (int i = 0; i < permissionList.size(); i++) {

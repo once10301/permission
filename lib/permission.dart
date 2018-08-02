@@ -38,13 +38,12 @@ class Permission {
     return permissionStatusList;
   }
 
-  static Future<List<Permissions>> requestPermission(List<PermissionName> permissionNameList) async {
+  static Future<List<Permissions>> requestPermissions(List<PermissionName> permissionNameList) async {
     List<String> list = [];
     permissionNameList.forEach((p) {
       list.add(getPermissionString(p));
     });
-    var status = await _channel.invokeMethod("requestPermission", {"permissions": list});
-    print(status);
+    var status = await _channel.invokeMethod("requestPermissions", {"permissions": list});
     List<Permissions> permissionStatusList = [];
     for (int i = 0; i < status.length; i++) {
       PermissionStatus permissionStatus;
@@ -65,6 +64,20 @@ class Permission {
       permissionStatusList.add(Permissions(permissionNameList[i], permissionStatus));
     }
     return permissionStatusList;
+  }
+
+  static Future<PermissionStatus> requestSinglePermission(PermissionName permissionName) async {
+    var status = await _channel.invokeMethod("requestPermissions", {"permissions": [getPermissionString(permissionName)]});
+      switch (status[0]) {
+        case -1:
+          return PermissionStatus.notAgain;
+        case 0:
+          return PermissionStatus.deny;
+        case 1:
+          return PermissionStatus.allow;
+        default:
+          return PermissionStatus.deny;
+      }
   }
 
   static Future<bool> openSettings() async {

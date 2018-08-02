@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:permission/permission.dart';
 
 void main() => runApp(new MyApp());
@@ -23,7 +20,8 @@ class _MyAppState extends State<MyApp> {
           child: new Column(
             children: <Widget>[
               RaisedButton(onPressed: getPermissionStatus, child: new Text("Get permission status")),
-              RaisedButton(onPressed: requestPermission, child: new Text("Request permission")),
+              RaisedButton(onPressed: requestPermissions, child: new Text("Request permissions")),
+              RaisedButton(onPressed: requestPermission, child: new Text("Request single permission")),
               RaisedButton(onPressed: Permission.openSettings, child: new Text("Open settings")),
             ],
           ),
@@ -37,11 +35,13 @@ class _MyAppState extends State<MyApp> {
     print(res);
   }
 
+  requestPermissions() async {
+    final res = await Permission.requestPermissions([PermissionName.Camera, PermissionName.AccessFineLocation]);
+    res.forEach((permission) {});
+  }
+
   requestPermission() async {
-    final res = await Permission.requestPermission([PermissionName.Camera, PermissionName.AccessFineLocation]);
-    res.forEach((permission){
-      print(permission.permissionName);
-      print(permission.permissionStatus);
-    });
+    final res = await Permission.requestSinglePermission(PermissionName.Camera);
+    print(res);
   }
 }
