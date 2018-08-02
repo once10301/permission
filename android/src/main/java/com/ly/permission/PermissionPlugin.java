@@ -133,6 +133,15 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
             case "WRITE_CONTACTS":
                 result = Manifest.permission.WRITE_CONTACTS;
                 break;
+            case "READ_SMS":
+                result = Manifest.permission.READ_SMS;
+                break;
+            case "RECEIVE_SMS":
+                result = Manifest.permission.RECEIVE_SMS;
+                break;
+            case "CALL_PHONE":
+                result = Manifest.permission.CALL_PHONE;
+                break;
             default:
                 result = "ERROR";
                 break;
