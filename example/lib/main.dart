@@ -9,6 +9,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String get = '';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,6 +25,7 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(onPressed: requestPermissions, child: new Text("Request permissions")),
               RaisedButton(onPressed: requestPermission, child: new Text("Request single permission")),
               RaisedButton(onPressed: Permission.openSettings, child: new Text("Open settings")),
+              Text(get),
             ],
           ),
         ),
@@ -31,17 +34,23 @@ class _MyAppState extends State<MyApp> {
   }
 
   getPermissionStatus() async {
-    var res = await Permission.getPermissionStatus([PermissionName.Camera, PermissionName.AccessFineLocation]);
-    print(res);
+    get = '';
+    List<Permissions> permissions = await Permission.getPermissionStatus([PermissionName.Calendar, PermissionName.Camera, PermissionName.Contacts, PermissionName.Location, PermissionName.Microphone, PermissionName.Phone, PermissionName.Sensors, PermissionName.SMS, PermissionName.Storage]);
+    permissions.forEach((permission) {
+      get += '${permission.permissionName}: ${permission.permissionStatus}\n';
+    });
+    setState(() {
+      get;
+    });
   }
 
   requestPermissions() async {
-    final res = await Permission.requestPermissions([PermissionName.Camera, PermissionName.AccessFineLocation]);
+    final res = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera, PermissionName.Contacts, PermissionName.Location, PermissionName.Microphone, PermissionName.Phone, PermissionName.Sensors, PermissionName.SMS, PermissionName.Storage]);
     res.forEach((permission) {});
   }
 
   requestPermission() async {
-    final res = await Permission.requestSinglePermission(PermissionName.Camera);
+    final res = await Permission.requestSinglePermission(PermissionName.Calendar);
     print(res);
   }
 }

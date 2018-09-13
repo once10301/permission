@@ -9,6 +9,7 @@ import android.provider.Settings;
 
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,6 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
     public void onMethodCall(MethodCall call, Result result) {
         List<String> permissions;
         switch (call.method) {
-            case "getPlatformVersion":
-                result.success("Android " + android.os.Build.VERSION.RELEASE);
-                break;
             case "getPermissionStatus":
                 permissions = call.argument("permissions");
                 result.success(get(permissions));
@@ -99,38 +97,32 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
     private String getManifestPermission(String permission) {
         String result;
         switch (permission) {
-            case "RECORD_AUDIO":
-                result = Manifest.permission.RECORD_AUDIO;
+            case "Calendar":
+                result = Manifest.permission.READ_CALENDAR;
                 break;
-            case "CAMERA":
+            case "Camera":
                 result = Manifest.permission.CAMERA;
                 break;
-            case "WRITE_EXTERNAL_STORAGE":
-                result = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-                break;
-            case "READ_EXTERNAL_STORAGE":
-                result = Manifest.permission.READ_EXTERNAL_STORAGE;
-                break;
-            case "ACCESS_FINE_LOCATION":
-                result = Manifest.permission.ACCESS_FINE_LOCATION;
-                break;
-            case "ACCESS_COARSE_LOCATION":
-                result = Manifest.permission.ACCESS_COARSE_LOCATION;
-                break;
-            case "WHEN_IN_USE_LOCATION":
-                result = Manifest.permission.ACCESS_FINE_LOCATION;
-                break;
-            case "ALWAYS_LOCATION":
-                result = Manifest.permission.ACCESS_FINE_LOCATION;
-                break;
-            case "READ_CONTACTS":
+            case "Contacts":
                 result = Manifest.permission.READ_CONTACTS;
                 break;
-            case "VIBRATE":
-                result = Manifest.permission.VIBRATE;
+            case "Location":
+                result = Manifest.permission.ACCESS_FINE_LOCATION;
                 break;
-            case "WRITE_CONTACTS":
-                result = Manifest.permission.WRITE_CONTACTS;
+            case "Microphone":
+                result = Manifest.permission.RECORD_AUDIO;
+                break;
+            case "Phone":
+                result = Manifest.permission.CALL_PHONE;
+                break;
+            case "Sensors":
+                result = Manifest.permission.BODY_SENSORS;
+                break;
+            case "SMS":
+                result = Manifest.permission.READ_SMS;
+                break;
+            case "Storage":
+                result = Manifest.permission.READ_EXTERNAL_STORAGE;
                 break;
             default:
                 result = "ERROR";

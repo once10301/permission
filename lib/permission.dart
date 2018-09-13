@@ -5,11 +5,6 @@ import 'package:flutter/services.dart';
 class Permission {
   static const MethodChannel _channel = const MethodChannel('plugins.ly.com/permission');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-
   static Future<List<Permissions>> getPermissionStatus(List<PermissionName> permissionNameList) async {
     List<String> list = [];
     permissionNameList.forEach((p) {
@@ -21,7 +16,7 @@ class Permission {
       PermissionStatus permissionStatus;
       switch (status[i]) {
         case -1:
-          permissionStatus = PermissionStatus.notAgain;
+          permissionStatus = PermissionStatus.noAgain;
           break;
         case 0:
           permissionStatus = PermissionStatus.deny;
@@ -49,7 +44,7 @@ class Permission {
       PermissionStatus permissionStatus;
       switch (status[i]) {
         case -1:
-          permissionStatus = PermissionStatus.notAgain;
+          permissionStatus = PermissionStatus.noAgain;
           break;
         case 0:
           permissionStatus = PermissionStatus.deny;
@@ -67,17 +62,19 @@ class Permission {
   }
 
   static Future<PermissionStatus> requestSinglePermission(PermissionName permissionName) async {
-    var status = await _channel.invokeMethod("requestPermissions", {"permissions": [getPermissionString(permissionName)]});
-      switch (status[0]) {
-        case -1:
-          return PermissionStatus.notAgain;
-        case 0:
-          return PermissionStatus.deny;
-        case 1:
-          return PermissionStatus.allow;
-        default:
-          return PermissionStatus.deny;
-      }
+    var status = await _channel.invokeMethod("requestPermissions", {
+      "permissions": [getPermissionString(permissionName)]
+    });
+    switch (status[0]) {
+      case -1:
+        return PermissionStatus.noAgain;
+      case 0:
+        return PermissionStatus.deny;
+      case 1:
+        return PermissionStatus.allow;
+      default:
+        return PermissionStatus.deny;
+    }
   }
 
   static Future<bool> openSettings() async {
@@ -86,10 +83,10 @@ class Permission {
 }
 
 /// Enum of all available [Permission]
-enum PermissionName { RecordAudio, Camera, WriteExternalStorage, ReadExternalStorage, AccessCoarseLocation, AccessFineLocation, WhenInUseLocation, AlwaysLocation, ReadContacts, Vibrate, WriteContacts, ReadSMS, CallPhone }
+enum PermissionName { Calendar, Camera, Contacts, Microphone, Location, Phone, Sensors, SMS, Storage }
 
 /// Permissions status enum (iOs)
-enum PermissionStatus { notAgain, deny, allow }
+enum PermissionStatus { noAgain, deny, allow }
 
 class Permissions {
   PermissionName permissionName;
@@ -101,44 +98,35 @@ class Permissions {
 String getPermissionString(PermissionName permissions) {
   String res;
   switch (permissions) {
+    case PermissionName.Calendar:
+      res = 'Calendar';
+      break;
     case PermissionName.Camera:
-      res = "CAMERA";
+      res = 'Camera';
       break;
-    case PermissionName.RecordAudio:
-      res = "RECORD_AUDIO";
+    case PermissionName.Contacts:
+      res = 'Contacts';
       break;
-    case PermissionName.WriteExternalStorage:
-      res = "WRITE_EXTERNAL_STORAGE";
+    case PermissionName.Microphone:
+      res = 'Microphone';
       break;
-    case PermissionName.ReadExternalStorage:
-      res = "READ_EXTERNAL_STORAGE";
+    case PermissionName.Location:
+      res = 'Location';
       break;
-    case PermissionName.AccessFineLocation:
-      res = "ACCESS_FINE_LOCATION";
+    case PermissionName.Phone:
+      res = 'Phone';
       break;
-    case PermissionName.AccessCoarseLocation:
-      res = "ACCESS_COARSE_LOCATION";
+    case PermissionName.Sensors:
+      res = 'Sensors';
       break;
-    case PermissionName.WhenInUseLocation:
-      res = "WHEN_IN_USE_LOCATION";
+    case PermissionName.SMS:
+      res = 'SMS';
       break;
-    case PermissionName.AlwaysLocation:
-      res = "ALWAYS_LOCATION";
+    case PermissionName.Storage:
+      res = 'Storage';
       break;
-    case PermissionName.ReadContacts:
-      res = "READ_CONTACTS";
-      break;
-    case PermissionName.Vibrate:
-      res = "VIBRATE";
-      break;
-    case PermissionName.WriteContacts:
-      res = "WRITE_CONTACTS";
-      break;
-    case PermissionName.ReadSMS:
-      res = "READ_SMS";
-      break;
-    case PermissionName.CallPhone:
-      res = "CALL_PHONE";
+    default:
+      res = '';
       break;
   }
   return res;

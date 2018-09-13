@@ -1,4 +1,7 @@
 #import "PermissionPlugin.h"
+#import <CoreLocation/CLLocationManager.h>
+
+@import AVFoundation;
 
 @implementation PermissionPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -8,13 +11,4 @@
   PermissionPlugin* instance = [[PermissionPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
-
-- (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else {
-    result(FlutterMethodNotImplemented);
-  }
-}
-
 @end
