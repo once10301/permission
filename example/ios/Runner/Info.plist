@@ -46,5 +46,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSCameraUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSContactsUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSLocationAlwaysUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSLocationWhenInUseUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSMicrophoneUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSPhotoLibraryUsageDescription</key>
+     <string>Your prompt</string>
+     <key>NSRemindersUsageDescription</key>
+     <string>Your prompt</string>
 </dict>
 </plist>
