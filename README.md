@@ -4,6 +4,31 @@ A new flutter plugin for getting and requesting permission on Android.
 
 ## Getting Started
 
+```
+enum PermissionName {
+  // iOS
+  Internet,
+  // both
+  Calendar,
+  // both
+  Camera,
+  // both
+  Contacts,
+  // both
+  Microphone,
+  // both
+  Location,
+  // Android
+  Phone,
+  // Android
+  Sensors,
+  // Android
+  SMS,
+  // Android
+  Storage
+}
+```
+
 ####Android:
 
 Only dangerous permissions require user agreement. 
@@ -130,20 +155,6 @@ Make sure you add the needed permissions to your Android Manifest Permission.
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 
-### Methods
-
-```dart
-import 'package:permission/permission.dart';
-
-List<Permissions> permissions = await Permission.getPermissionStatus([PermissionName.Calendar, PermissionName.Camera]);
-
-final result = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
-
-final result = await Permission.requestSinglePermission(PermissionName.Calendar);
-
-Permission.openSettings;
-```
-
 #### iOS
 
  Add the needed permissions to your info.plist
@@ -155,7 +166,7 @@ Permission.openSettings;
  <string>Your prompt</string>
  <key>NSContactsUsageDescription</key>
  <string>Your prompt</string>
- <key>NSLocationAlwaysUsageDescription</key>
+ <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
  <string>Your prompt</string>
  <key>NSLocationWhenInUseUsageDescription</key>
  <string>Your prompt</string>
@@ -166,3 +177,24 @@ Permission.openSettings;
  <key>NSRemindersUsageDescription</key>
  <string>Your prompt</string>
 ```
+
+#### Methods
+
+```dart
+import 'package:permission/permission.dart';
+
+# Android
+List<Permissions> permissions = await Permission.getPermissionStatus([PermissionName.Calendar, PermissionName.Camera]);
+
+List<PermissionName> permissionNames = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+
+# iOS
+PermissionStatus permissionStatus = await Permission.getSinglePermissionStatus(PermissionName.Calendar);
+
+PermissionStatus permissionStatus = await Permission.requestSinglePermission(PermissionName.Calendar);
+
+# Both
+Permission.openSettings;
+```
+
+#### 

@@ -1,25 +1,19 @@
 PODS:
-  - camera (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - permission (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - camera (from `.symlinks/plugins/camera/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - permission (from `.symlinks/plugins/permission/ios`)
 
 EXTERNAL SOURCES:
-  camera:
-    :path: ".symlinks/plugins/camera/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
   permission:
     :path: ".symlinks/plugins/permission/ios"
 
 SPEC CHECKSUMS:
-  camera: be01db3b2193839f9af56a9db99b7fea444d35f3
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   permission: 3781bb5a85794b350fa6d978f702abe4d87ff2d9
 
