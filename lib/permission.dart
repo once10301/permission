@@ -193,8 +193,20 @@ String getPermissionString(PermissionName permissions) {
     case PermissionName.Sensors:
       res = 'Sensors';
       break;
-    case PermissionName.SMS:
-      res = 'SMS';
+    case PermissionName.SEND_SMS:
+      res = 'SEND_SMS';
+      break;
+    case PermissionName.RECEIVE_SMS:
+      res = 'RECEIVE_SMS';
+      break;
+    case PermissionName.READ_SMS:
+      res = 'READ_SMS';
+      break;
+    case PermissionName.RECEIVE_WAP_PUSH:
+      res = 'RECIEVE_WAP_PUSH';
+      break;
+    case PermissionName.RECEIVE_MMS:
+      res = 'RECEIVE_MMS';
       break;
     case PermissionName.Storage:
       res = 'Storage';
