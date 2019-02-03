@@ -144,7 +144,15 @@ enum PermissionName {
   // Android
   Sensors,
   // Android
-  SMS,
+  SEND_SMS,
+  // Android
+  RECEIVE_SMS,
+  // Android
+  READ_SMS,
+  // Android
+  RECEIVE_WAP_PUSH,
+  // Android
+  RECEIVE_MMS,
   // Android
   Storage
 }
