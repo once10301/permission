@@ -118,8 +118,20 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
             case "Sensors":
                 result = Manifest.permission.BODY_SENSORS;
                 break;
-            case "SMS":
+            case "READ_SMS":
                 result = Manifest.permission.READ_SMS;
+                break;
+            case "SEND_SMS":
+                result = Manifest.permission.SEND_SMS;
+                break;
+            case "RECEIVE_SMS":
+                result = Manifest.permission.RECEIVE_SMS;
+                break;
+            case "RECEIVE_WAP_PUSH":
+                result = Manifest.permission.RECEIVE_WAP_PUSH;
+                break;
+            case "RECEIVE_MMS":
+                result = Manifest.permission.RECEIVE_MMS;
                 break;
             case "Storage":
                 result = Manifest.permission.READ_EXTERNAL_STORAGE;
