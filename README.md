@@ -184,9 +184,9 @@ Make sure you add the needed permissions to your Android Manifest Permission.
 import 'package:permission/permission.dart';
 
 # Android
-List<Permissions> permissions = await Permission.getPermissionStatus([PermissionName.Calendar, PermissionName.Camera]);
+List<Permissions> permissions = await Permission.getPermissionsStatus([PermissionName.Calendar, PermissionName.Camera]);
 
-List<PermissionName> permissionNames = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+List<Permissions> permissionNames = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
 
 # iOS
 PermissionStatus permissionStatus = await Permission.getSinglePermissionStatus(PermissionName.Calendar);
