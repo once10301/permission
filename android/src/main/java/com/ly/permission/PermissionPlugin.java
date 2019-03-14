@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 
-/*import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;*/
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
         Activity activity = registrar.activity();
         for (String permission : permissions) {
             permission = getManifestPermission(permission);
-            /*if (ContextCompat.checkSelfPermission(registrar.activity(), permission) == PackageManager.PERMISSION_DENIED) {
+            if (ContextCompat.checkSelfPermission(registrar.activity(), permission) == PackageManager.PERMISSION_DENIED) {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
                     intList.add(3);
                 } else {
@@ -72,7 +72,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
                 }
             } else {
                 intList.add(0);
-            }*/
+            }
         }
         return intList;
     }
@@ -83,7 +83,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
         for (int i = 0; i < permissionList.size(); i++) {
             permissions[i] = getManifestPermission(permissionList.get(i));
         }
-        //ActivityCompat.requestPermissions(activity, permissions, 0);
+        ActivityCompat.requestPermissions(activity, permissions, 0);
     }
 
     private void openSettings() {
@@ -137,11 +137,11 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
             List<Integer> intList = new ArrayList<>();
             for (int i = 0; i < ints.length; i++) {
                 if (ints[i] == PackageManager.PERMISSION_DENIED) {
-                    /*if (!ActivityCompat.shouldShowRequestPermissionRationale(registrar.activity(), strings[i])) {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(registrar.activity(), strings[i])) {
                         intList.add(3);
                     } else {
                         intList.add(1);
-                    }*/
+                    }
                 } else {
                     intList.add(0);
                 }
