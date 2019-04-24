@@ -109,6 +109,9 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
             case "Location":
                 result = Manifest.permission.ACCESS_FINE_LOCATION;
                 break;
+            case "CoarseLocation":
+                result = Manifest.permission.ACCESS_COARSE_LOCATION;
+                break;
             case "Microphone":
                 result = Manifest.permission.RECORD_AUDIO;
                 break;

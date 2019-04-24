@@ -19,6 +19,8 @@ enum PermissionName {
   // both
   Location,
   // Android
+  CoarseLocation,
+  // Android
   Phone,
   // Android
   Sensors,
@@ -69,6 +71,10 @@ Dangerous permissions and permission groups.
     </tr>
     <tr>
         <td >ACCESS_COARSE_LOCATION</td>
+    </tr>
+    <tr>
+        <td>COARSELOCATION</td>
+        <td>ACCESS_COARSE_LOCATION</td>
     </tr>
     <tr>
         <td>MICROPHONE</td>

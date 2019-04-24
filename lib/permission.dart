@@ -140,6 +140,8 @@ enum PermissionName {
   // both
   Location,
   // Android
+  CoarseLocation,
+// Android
   Phone,
   // Android
   Sensors,
@@ -178,6 +180,9 @@ String getPermissionString(PermissionName permissions) {
       break;
     case PermissionName.Location:
       res = 'Location';
+      break;
+    case PermissionName.CoarseLocation:
+      res = 'CoarseLocation';
       break;
     case PermissionName.Phone:
       res = 'Phone';
