@@ -73,6 +73,10 @@ Dangerous permissions and permission groups.
         <td >ACCESS_COARSE_LOCATION</td>
     </tr>
     <tr>
+        <td>COARSELOCATION</td>
+        <td>ACCESS_COARSE_LOCATION</td>
+    </tr>
+    <tr>
         <td>MICROPHONE</td>
         <td>RECORD_AUDIO</td>
     </tr>
