@@ -19,6 +19,8 @@ enum PermissionName {
   // both
   Location,
   // Android
+  CoarseLocation,
+  // Android
   Phone,
   // Android
   Sensors,
