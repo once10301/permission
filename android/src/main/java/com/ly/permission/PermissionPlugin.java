@@ -7,9 +7,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        List<String> permissions = new ArrayList<>();
+        List<String> permissions;
         switch (call.method) {
             case "getPermissionsStatus":
                 permissions = call.argument("permissions");

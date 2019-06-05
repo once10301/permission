@@ -120,7 +120,7 @@ CLLocationManager *locationManager;
                     result(@2);
                     break;
             }
-        } else if ([@"Location" isEqualToString:permissionName]){
+        } else if ([@"Location" isEqualToString:permissionName]|[@"WhenInUse" isEqualToString:permissionName] ){
             CLAuthorizationStatus CLStatus =  [CLLocationManager authorizationStatus];
             switch (CLStatus) {
                 case kCLAuthorizationStatusAuthorizedWhenInUse:
@@ -231,6 +231,9 @@ CLLocationManager *locationManager;
         } else if ([@"Location" isEqualToString:permissionName]){
             locationManager = [[CLLocationManager alloc] init];
             [locationManager requestAlwaysAuthorization];
+        } else if ([@"WhenInUse" isEqualToString:permissionName]){
+            locationManager = [[CLLocationManager alloc] init];
+            [locationManager requestWhenInUseAuthorization];
         }
     } else if ([@"openSettings" isEqualToString:call.method]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];

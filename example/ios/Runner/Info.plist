@@ -60,6 +60,8 @@
 	<string>Your prompt</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your prompt</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your prompt</string>
 	<key>NSAppTransportSecurity</key>

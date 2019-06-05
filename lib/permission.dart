@@ -139,6 +139,8 @@ enum PermissionName {
   Microphone,
   // both
   Location,
+  // iOS
+  WhenInUse,
   // Android
   Phone,
   // Android
@@ -178,6 +180,9 @@ String getPermissionString(PermissionName permissions) {
       break;
     case PermissionName.Location:
       res = 'Location';
+      break;
+    case PermissionName.WhenInUse:
+      res = 'WhenInUse';
       break;
     case PermissionName.Phone:
       res = 'Phone';

@@ -181,6 +181,19 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Offstage(
+                offstage: !Platform.isIOS,
+                child: Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 6,
+                      groupValue: radioValue,
+                      onChanged: radioValueChange,
+                    ),
+                    Text('WhenInUse'),
+                  ],
+                ),
+              ),
+              Offstage(
                 offstage: !Platform.isAndroid,
                 child: RaisedButton(onPressed: getPermissionsStatus, child: new Text("Get permission status")),
               ),
@@ -282,6 +295,9 @@ class _MyAppState extends State<MyApp> {
           break;
         case 5:
           permissionName = PermissionName.Location;
+          break;
+        case 6:
+          permissionName = PermissionName.WhenInUse;
           break;
       }
     });
