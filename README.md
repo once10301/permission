@@ -168,6 +168,8 @@ Make sure you add the needed permissions to your Android Manifest Permission.
  <string>Your prompt</string>
  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
  <string>Your prompt</string>
+ <key>NSLocationAlwaysUsageDescription</key>
+ <string>Your prompt</string>
  <key>NSLocationWhenInUseUsageDescription</key>
  <string>Your prompt</string>
  <key>NSMicrophoneUsageDescription</key>
@@ -184,14 +186,14 @@ Make sure you add the needed permissions to your Android Manifest Permission.
 import 'package:permission/permission.dart';
 
 # Android
-List<Permissions> permissions = await Permission.getPermissionStatus([PermissionName.Calendar, PermissionName.Camera]);
+var permissions = await Permission.getPermissionsStatus([PermissionName.Calendar, PermissionName.Camera]);
 
-List<PermissionName> permissionNames = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+var permissionNames = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
 
 # iOS
-PermissionStatus permissionStatus = await Permission.getSinglePermissionStatus(PermissionName.Calendar);
+var permissionStatus = await Permission.getSinglePermissionStatus(PermissionName.Calendar);
 
-PermissionStatus permissionStatus = await Permission.requestSinglePermission(PermissionName.Calendar);
+var permissionStatus = await Permission.requestSinglePermission(PermissionName.Calendar);
 
 # Both
 Permission.openSettings;
