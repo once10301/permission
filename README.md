@@ -23,15 +23,23 @@ enum PermissionName {
   // Android
   Sensors,
   // Android
-  SMS,
+  SEND_SMS,
+  // Android
+  RECEIVE_SMS,
+  // Android
+  READ_SMS,
+  // Android
+  RECEIVE_WAP_PUSH,
+  // Android
+  RECEIVE_MMS,
   // Android
   Storage
 }
 ```
 
-####Android:
+#### Android:
 
-Only dangerous permissions require user agreement. 
+Only dangerous permissions require user agreement.
 
 Permissions are organized into groups related to a device's capabilities or features. Under this system, permission requests are handled at the group level and a single permission group corresponds to several permission declarations in the app manifest.
 
@@ -43,7 +51,7 @@ Dangerous permissions and permission groups.
         <td>Permissions</td>
     </tr>
     <tr>
-        <td rowspan="2">CALENDAR</td> 
+        <td rowspan="2">CALENDAR</td>
         <td >READ_CALENDAR</td>
     </tr>
     <tr>
@@ -123,7 +131,11 @@ Dangerous permissions and permission groups.
     <tr>
         <td >WRITE_EXTERNAL_STORAGE</td>
     </tr>
-</table>	
+</table>
+
+Effective January 2019, Google has added new restrictions to applications with SMS Permissions.
+In order to publish an App on the Play Store with SMS permissions, it must have consent from Google or
+be set as the default SMS app. For more information please see https://play.google.com/about/privacy-security-deception/permissions/
 
 Make sure you add the needed permissions to your Android Manifest Permission.
 
@@ -157,7 +169,7 @@ Make sure you add the needed permissions to your Android Manifest Permission.
 
 #### iOS
 
- Add the needed permissions to your info.plist
+Add the needed permissions to your info.plist
 
 ```objective-c
  <key>NSCalendarsUsageDescription</key>
@@ -199,4 +211,4 @@ var permissionStatus = await Permission.requestSinglePermission(PermissionName.C
 Permission.openSettings;
 ```
 
-#### 
+####
