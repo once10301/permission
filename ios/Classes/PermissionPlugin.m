@@ -19,196 +19,172 @@ CLLocationManager *locationManager;
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-    if ([@"getSinglePermissionStatus" isEqualToString:call.method]) {
-        NSDictionary* argsMap = call.arguments;
-        NSString *permissionName = argsMap[@"permissionName"];
-        if ([@"Internet" isEqualToString:permissionName]) {
-            if (@available(iOS 9.0, *)) {
-                CTCellularData *cellularData = [[CTCellularData alloc] init];
-                cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
-                    switch (state) {
-                        case kCTCellularDataNotRestricted:
-                            result(@0);
-                            break;
-                        case kCTCellularDataRestricted:
-                            result(@1);
-                            break;
-                        case kCTCellularDataRestrictedStateUnknown:
-                            result(@2);
-                            break;
-                        default:
-                            result(@2);
-                            break;
-                    }
-                };
-            }
-        } else if ([@"Calendar" isEqualToString:permissionName]) {
-            EKAuthorizationStatus EKStatus = [EKEventStore  authorizationStatusForEntityType:EKEntityTypeEvent];
-            switch (EKStatus) {
-                case EKAuthorizationStatusAuthorized:
-                    result(@0);
-                    break;
-                case EKAuthorizationStatusDenied:
-                    result(@1);
-                    break;
-                case EKAuthorizationStatusNotDetermined:
-                    result(@2);
-                    break;
-                case EKAuthorizationStatusRestricted:
-                    result(@1);
-                    break;
-                default:
-                    result(@2);
-                    break;
-            }
-        } else if ([@"Camera" isEqualToString:permissionName]){
-            PHAuthorizationStatus PHStatus = [PHPhotoLibrary authorizationStatus];
-            switch (PHStatus) {
-                case PHAuthorizationStatusAuthorized:
-                    result(@0);
-                    break;
-                case PHAuthorizationStatusDenied:
-                    result(@1);
-                    break;
-                case PHAuthorizationStatusNotDetermined:
-                    result(@2);
-                    break;
-                case PHAuthorizationStatusRestricted:
-                    result(@1);
-                    break;
-                default:
-                    result(@2);
-                    break;
-            }
-        } else if ([@"Contacts" isEqualToString:permissionName]){
-            if (@available(iOS 9.0, *)) {
-                CNAuthorizationStatus CNStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-                switch (CNStatus) {
-                    case CNAuthorizationStatusAuthorized:
-                        result(@0);
+    if ([@"getPermissionsStatus" isEqualToString:call.method]) {
+        NSDictionary *argsMap = call.arguments;
+        NSArray *permissions = argsMap[@"permissions"];
+        NSMutableArray *list = @[].mutableCopy;
+        for (NSString *permissionName in permissions) {
+            if ([@"Internet" isEqualToString:permissionName]) {
+                if (@available(iOS 9.0, *)) {
+                    CTCellularData *cellularData = [[CTCellularData alloc] init];
+                    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
+                        switch (state) {
+                            case kCTCellularDataNotRestricted:
+                                [list insertObject:@0 atIndex:0];
+                                break;
+                            case kCTCellularDataRestricted:
+                                [list insertObject:@1 atIndex:0];
+                                break;
+                            case kCTCellularDataRestrictedStateUnknown:
+                                [list insertObject:@2 atIndex:0];
+                                break;
+                            default:
+                                [list insertObject:@2 atIndex:0];
+                                break;
+                        }
+                    };
+                }
+            } else if ([@"Calendar" isEqualToString:permissionName]) {
+                EKAuthorizationStatus EKStatus = [EKEventStore  authorizationStatusForEntityType:EKEntityTypeEvent];
+                switch (EKStatus) {
+                    case EKAuthorizationStatusAuthorized:
+                        [list addObject:@0];
                         break;
-                    case CNAuthorizationStatusDenied:
-                        result(@1);
+                    case EKAuthorizationStatusDenied:
+                        [list addObject:@1];
                         break;
-                    case CNAuthorizationStatusNotDetermined:
-                        result(@2);
+                    case EKAuthorizationStatusNotDetermined:
+                        [list addObject:@2];
                         break;
-                    case CNAuthorizationStatusRestricted:
-                        result(@1);
+                    case EKAuthorizationStatusRestricted:
+                        [list addObject:@1];
                         break;
                     default:
-                        result(@2);
+                        [list addObject:@2];
                         break;
                 }
-            }
-        } else if ([@"Microphone" isEqualToString:permissionName]){
-            AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-            switch (AVStatus) {
-                case AVAuthorizationStatusAuthorized:
-                    result(@0);
-                    break;
-                case AVAuthorizationStatusDenied:
-                    result(@1);
-                    break;
-                case AVAuthorizationStatusNotDetermined:
-                    result(@2);
-                    break;
-                case AVAuthorizationStatusRestricted:
-                    result(@1);
-                    break;
-                default:
-                    result(@2);
-                    break;
-            }
-        } else if ([@"Location" isEqualToString:permissionName]|[@"WhenInUse" isEqualToString:permissionName] ){
-            CLAuthorizationStatus CLStatus =  [CLLocationManager authorizationStatus];
-            switch (CLStatus) {
-                case kCLAuthorizationStatusAuthorizedWhenInUse:
-                    result(@4);
-                    break;
-                case kCLAuthorizationStatusAuthorizedAlways:
-                    result(@5);
-                    break;
-                case kCLAuthorizationStatusDenied:
-                    result(@1);
-                    break;
-                case kCLAuthorizationStatusNotDetermined:
-                    result(@2);
-                    break;
-                case kCLAuthorizationStatusRestricted:
-                    result(@1);
-                    break;
-                default:
-                    result(@2);
-                    break;
-            }
-        }
-    } else if ([@"requestSinglePermission" isEqualToString:call.method]) {
-        NSDictionary* argsMap = call.arguments;
-        NSString *permissionName = argsMap[@"permissionName"];
-        if ([@"Internet" isEqualToString:permissionName]) {
-            NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            NSURLSession *session = [NSURLSession sharedSession];
-            NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            }];
-            [dataTask resume];
-            if (@available(iOS 9.0, *)) {
-                CTCellularData *cellularData = [[CTCellularData alloc] init];
-                cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
-                    switch (state) {
-                        case kCTCellularDataNotRestricted:
-                            result(@0);
-                            break;
-                        case kCTCellularDataRestricted:
-                            result(@1);
-                            break;
-                        case kCTCellularDataRestrictedStateUnknown:
-                            result(@2);
-                            break;
-                        default:
-                            result(@2);
-                            break;
-                    }
-                };
-            }
-        } else if ([@"Calendar" isEqualToString:permissionName]){
-            EKEventStore *eventStore = [[EKEventStore alloc] init];
-            [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-                if (error) {
-                    result(@2);
-                    return;
-                }
-                if (granted) {
-                    result(@0);
-                } else {
-                    result(@1);
-                }
-            }];
-        } else if ([@"Camera" isEqualToString:permissionName]){
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus PHStatus) {
+            } else if ([@"Camera" isEqualToString:permissionName]){
+                PHAuthorizationStatus PHStatus = [PHPhotoLibrary authorizationStatus];
                 switch (PHStatus) {
                     case PHAuthorizationStatusAuthorized:
-                        result(@0);
+                        [list addObject:@0];
                         break;
                     case PHAuthorizationStatusDenied:
-                        result(@1);
+                        [list addObject:@1];
                         break;
                     case PHAuthorizationStatusNotDetermined:
-                        result(@2);
+                        [list addObject:@2];
                         break;
                     case PHAuthorizationStatusRestricted:
-                        result(@1);
+                        [list addObject:@1];
                         break;
                     default:
-                        result(@2);
+                        [list addObject:@2];
                         break;
                 }
-            }];
-        } else if ([@"Contacts" isEqualToString:permissionName]){
-            if (@available(iOS 9.0, *)) {
-                CNContactStore *contactStore = [[CNContactStore alloc] init];
-                [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            } else if ([@"Contacts" isEqualToString:permissionName]){
+                if (@available(iOS 9.0, *)) {
+                    CNAuthorizationStatus CNStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+                    switch (CNStatus) {
+                        case CNAuthorizationStatusAuthorized:
+                            [list addObject:@0];
+                            break;
+                        case CNAuthorizationStatusDenied:
+                            [list addObject:@1];
+                            break;
+                        case CNAuthorizationStatusNotDetermined:
+                            [list addObject:@2];
+                            break;
+                        case CNAuthorizationStatusRestricted:
+                            [list addObject:@1];
+                            break;
+                        default:
+                            [list addObject:@2];
+                            break;
+                    }
+                }
+            } else if ([@"Microphone" isEqualToString:permissionName]){
+                AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+                switch (AVStatus) {
+                    case AVAuthorizationStatusAuthorized:
+                        [list addObject:@0];
+                        break;
+                    case AVAuthorizationStatusDenied:
+                        [list addObject:@1];
+                        break;
+                    case AVAuthorizationStatusNotDetermined:
+                        [list addObject:@2];
+                        break;
+                    case AVAuthorizationStatusRestricted:
+                        [list addObject:@1];
+                        break;
+                    default:
+                        [list addObject:@2];
+                        break;
+                }
+            } else if ([@"Location" isEqualToString:permissionName]){
+                CLAuthorizationStatus CLStatus =  [CLLocationManager authorizationStatus];
+                switch (CLStatus) {
+                    case kCLAuthorizationStatusAuthorizedWhenInUse:
+                        [list addObject:@4];
+                        break;
+                    case kCLAuthorizationStatusAuthorizedAlways:
+                        [list addObject:@5];
+                        break;
+                    case kCLAuthorizationStatusDenied:
+                        [list addObject:@1];
+                        break;
+                    case kCLAuthorizationStatusNotDetermined:
+                        [list addObject:@2];
+                        break;
+                    case kCLAuthorizationStatusRestricted:
+                        [list addObject:@1];
+                        break;
+                    default:
+                        [list addObject:@2];
+                        break;
+                }
+            }
+        }
+        while (1) {
+            if (list.count == permissions.count) {
+                result(list);
+                return;
+            }
+        }
+    } else if ([@"requestPermissions" isEqualToString:call.method]) {
+        NSDictionary *argsMap = call.arguments;
+        NSArray *permissions = argsMap[@"permissions"];
+        for (NSString *permissionName in permissions) {
+            if ([@"Internet" isEqualToString:permissionName]) {
+                NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
+                NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                NSURLSession *session = [NSURLSession sharedSession];
+                NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                }];
+                [dataTask resume];
+                if (@available(iOS 9.0, *)) {
+                    CTCellularData *cellularData = [[CTCellularData alloc] init];
+                    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
+                        switch (state) {
+                            case kCTCellularDataNotRestricted:
+                                result(@0);
+                                break;
+                            case kCTCellularDataRestricted:
+                                result(@1);
+                                break;
+                            case kCTCellularDataRestrictedStateUnknown:
+                                result(@2);
+                                break;
+                            default:
+                                result(@2);
+                                break;
+                        }
+                    };
+                }
+            } else if ([@"Calendar" isEqualToString:permissionName]){
+                EKEventStore *eventStore = [[EKEventStore alloc] init];
+                [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
                     if (error) {
                         result(@2);
                         return;
@@ -219,21 +195,53 @@ CLLocationManager *locationManager;
                         result(@1);
                     }
                 }];
-            }
-        } else if ([@"Microphone" isEqualToString:permissionName]){
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                if (granted) {
-                    result(@0);
-                } else {
-                    result(@1);
+            } else if ([@"Camera" isEqualToString:permissionName]){
+                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus PHStatus) {
+                    switch (PHStatus) {
+                        case PHAuthorizationStatusAuthorized:
+                            result(@0);
+                            break;
+                        case PHAuthorizationStatusDenied:
+                            result(@1);
+                            break;
+                        case PHAuthorizationStatusNotDetermined:
+                            result(@2);
+                            break;
+                        case PHAuthorizationStatusRestricted:
+                            result(@1);
+                            break;
+                        default:
+                            result(@2);
+                            break;
+                    }
+                }];
+            } else if ([@"Contacts" isEqualToString:permissionName]){
+                if (@available(iOS 9.0, *)) {
+                    CNContactStore *contactStore = [[CNContactStore alloc] init];
+                    [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                        if (error) {
+                            result(@2);
+                            return;
+                        }
+                        if (granted) {
+                            result(@0);
+                        } else {
+                            result(@1);
+                        }
+                    }];
                 }
-            }];
-        } else if ([@"Location" isEqualToString:permissionName]){
-            locationManager = [[CLLocationManager alloc] init];
-            [locationManager requestAlwaysAuthorization];
-        } else if ([@"WhenInUse" isEqualToString:permissionName]){
-            locationManager = [[CLLocationManager alloc] init];
-            [locationManager requestWhenInUseAuthorization];
+            } else if ([@"Microphone" isEqualToString:permissionName]){
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                    if (granted) {
+                        result(@0);
+                    } else {
+                        result(@1);
+                    }
+                }];
+            } else if ([@"Location" isEqualToString:permissionName]){
+                locationManager = [[CLLocationManager alloc] init];
+                [locationManager requestAlwaysAuthorization];
+            }
         }
     } else if ([@"openSettings" isEqualToString:call.method]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];

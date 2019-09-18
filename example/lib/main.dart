@@ -13,7 +13,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool c0 = true, c1 = false, c2 = false, c3 = false, c4 = false, c5 = false, c6 = false, c7 = false, c8 = false;
+  bool a0 = false, a1 = false, a2 = false, a3 = false, a4 = false, a5 = false, a6 = false, a7 = false, a8 = false;
+  bool i0 = false, i1 = false, i2 = false, i3 = false, i4 = false, i5 = false;
   int radioValue = 0;
   PermissionName permissionName = PermissionName.Internet;
   String message = '';
@@ -33,28 +34,28 @@ class _MyAppState extends State<MyApp> {
                 child: Row(
                   children: <Widget>[
                     Checkbox(
-                      value: c0,
+                      value: a0,
                       onChanged: (v) {
                         setState(() {
-                          c0 = v;
+                          a0 = v;
                         });
                       },
                     ),
                     Text('Calendar'),
                     Checkbox(
-                      value: c1,
+                      value: a1,
                       onChanged: (v) {
                         setState(() {
-                          c1 = v;
+                          a1 = v;
                         });
                       },
                     ),
                     Text('Camera'),
                     Checkbox(
-                      value: c2,
+                      value: a2,
                       onChanged: (v) {
                         setState(() {
-                          c2 = v;
+                          a2 = v;
                         });
                       },
                     ),
@@ -67,28 +68,28 @@ class _MyAppState extends State<MyApp> {
                 child: Row(
                   children: <Widget>[
                     Checkbox(
-                      value: c3,
+                      value: a3,
                       onChanged: (v) {
                         setState(() {
-                          c3 = v;
+                          a3 = v;
                         });
                       },
                     ),
                     Text('Microphone'),
                     Checkbox(
-                      value: c4,
+                      value: a4,
                       onChanged: (v) {
                         setState(() {
-                          c4 = v;
+                          a4 = v;
                         });
                       },
                     ),
                     Text('Location'),
                     Checkbox(
-                      value: c5,
+                      value: a5,
                       onChanged: (v) {
                         setState(() {
-                          c5 = v;
+                          a5 = v;
                         });
                       },
                     ),
@@ -101,28 +102,28 @@ class _MyAppState extends State<MyApp> {
                 child: Row(
                   children: <Widget>[
                     Checkbox(
-                      value: c6,
+                      value: a6,
                       onChanged: (v) {
                         setState(() {
-                          c6 = v;
+                          a6 = v;
                         });
                       },
                     ),
                     Text('Sensors'),
                     Checkbox(
-                      value: c7,
+                      value: a7,
                       onChanged: (v) {
                         setState(() {
-                          c7 = v;
+                          a7 = v;
                         });
                       },
                     ),
                     Text('SMS'),
                     Checkbox(
-                      value: c8,
+                      value: a8,
                       onChanged: (v) {
                         setState(() {
-                          c8 = v;
+                          a8 = v;
                         });
                       },
                     ),
@@ -134,22 +135,31 @@ class _MyAppState extends State<MyApp> {
                 offstage: !Platform.isIOS,
                 child: Row(
                   children: <Widget>[
-                    Radio(
-                      value: 0,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i0,
+                      onChanged: (v) {
+                        setState(() {
+                          i0 = v;
+                        });
+                      },
                     ),
                     Text('Internet'),
-                    Radio(
-                      value: 1,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i1,
+                      onChanged: (v) {
+                        setState(() {
+                          i1 = v;
+                        });
+                      },
                     ),
                     Text('Calendar'),
-                    Radio(
-                      value: 2,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i2,
+                      onChanged: (v) {
+                        setState(() {
+                          i2 = v;
+                        });
+                      },
                     ),
                     Text('Camera'),
                   ],
@@ -159,56 +169,38 @@ class _MyAppState extends State<MyApp> {
                 offstage: !Platform.isIOS,
                 child: Row(
                   children: <Widget>[
-                    Radio(
-                      value: 3,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i3,
+                      onChanged: (v) {
+                        setState(() {
+                          i3 = v;
+                        });
+                      },
                     ),
                     Text('Contacts'),
-                    Radio(
-                      value: 4,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i4,
+                      onChanged: (v) {
+                        setState(() {
+                          i4 = v;
+                        });
+                      },
                     ),
                     Text('Microphone'),
-                    Radio(
-                      value: 5,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
+                    Checkbox(
+                      value: i5,
+                      onChanged: (v) {
+                        setState(() {
+                          i5 = v;
+                        });
+                      },
                     ),
                     Text('Location'),
                   ],
                 ),
               ),
-              Offstage(
-                offstage: !Platform.isIOS,
-                child: Row(
-                  children: <Widget>[
-                    Radio(
-                      value: 6,
-                      groupValue: radioValue,
-                      onChanged: radioValueChange,
-                    ),
-                    Text('WhenInUse'),
-                  ],
-                ),
-              ),
-              Offstage(
-                offstage: !Platform.isAndroid,
-                child: RaisedButton(onPressed: getPermissionsStatus, child: new Text("Get permission status")),
-              ),
-              Offstage(
-                offstage: !Platform.isAndroid,
-                child: RaisedButton(onPressed: requestPermissions, child: new Text("Request permissions")),
-              ),
-              Offstage(
-                offstage: !Platform.isIOS,
-                child: RaisedButton(onPressed: getSinglePermissionStatus, child: new Text("Get single permission status")),
-              ),
-              Offstage(
-                offstage: !Platform.isIOS,
-                child: RaisedButton(onPressed: requestSinglePermission, child: new Text("Request single permission")),
-              ),
+              RaisedButton(onPressed: getPermissionsStatus, child: new Text("Get permission status")),
+              RaisedButton(onPressed: requestPermissions, child: new Text("Request permissions")),
               RaisedButton(onPressed: Permission.openSettings, child: new Text("Open settings")),
               Text(message),
             ],
@@ -220,15 +212,22 @@ class _MyAppState extends State<MyApp> {
 
   getPermissionsStatus() async {
     List<PermissionName> permissionNames = [];
-    if(c0) permissionNames.add(PermissionName.Calendar);
-    if(c1) permissionNames.add(PermissionName.Camera);
-    if(c2) permissionNames.add(PermissionName.Contacts);
-    if(c3) permissionNames.add(PermissionName.Microphone);
-    if(c4) permissionNames.add(PermissionName.Location);
-    if(c5) permissionNames.add(PermissionName.Phone);
-    if(c6) permissionNames.add(PermissionName.Sensors);
-    if(c7) permissionNames.add(PermissionName.SMS);
-    if(c8) permissionNames.add(PermissionName.Storage);
+    if(a0) permissionNames.add(PermissionName.Calendar);
+    if(a1) permissionNames.add(PermissionName.Camera);
+    if(a2) permissionNames.add(PermissionName.Contacts);
+    if(a3) permissionNames.add(PermissionName.Microphone);
+    if(a4) permissionNames.add(PermissionName.Location);
+    if(a5) permissionNames.add(PermissionName.Phone);
+    if(a6) permissionNames.add(PermissionName.Sensors);
+    if(a7) permissionNames.add(PermissionName.SMS);
+    if(a8) permissionNames.add(PermissionName.Storage);
+
+    if(i0) permissionNames.add(PermissionName.Internet);
+    if(i1) permissionNames.add(PermissionName.Calendar);
+    if(i2) permissionNames.add(PermissionName.Camera);
+    if(i3) permissionNames.add(PermissionName.Contacts);
+    if(i4) permissionNames.add(PermissionName.Microphone);
+    if(i5) permissionNames.add(PermissionName.Location);
     message = '';
     List<Permissions> permissions = await Permission.getPermissionsStatus(permissionNames);
     permissions.forEach((permission) {
@@ -248,15 +247,22 @@ class _MyAppState extends State<MyApp> {
 
   requestPermissions() async {
     List<PermissionName> permissionNames = [];
-    if(c0) permissionNames.add(PermissionName.Calendar);
-    if(c1) permissionNames.add(PermissionName.Camera);
-    if(c2) permissionNames.add(PermissionName.Contacts);
-    if(c3) permissionNames.add(PermissionName.Microphone);
-    if(c4) permissionNames.add(PermissionName.Location);
-    if(c5) permissionNames.add(PermissionName.Phone);
-    if(c6) permissionNames.add(PermissionName.Sensors);
-    if(c7) permissionNames.add(PermissionName.SMS);
-    if(c8) permissionNames.add(PermissionName.Storage);
+    if(a0) permissionNames.add(PermissionName.Calendar);
+    if(a1) permissionNames.add(PermissionName.Camera);
+    if(a2) permissionNames.add(PermissionName.Contacts);
+    if(a3) permissionNames.add(PermissionName.Microphone);
+    if(a4) permissionNames.add(PermissionName.Location);
+    if(a5) permissionNames.add(PermissionName.Phone);
+    if(a6) permissionNames.add(PermissionName.Sensors);
+    if(a7) permissionNames.add(PermissionName.SMS);
+    if(a8) permissionNames.add(PermissionName.Storage);
+
+    if(i0) permissionNames.add(PermissionName.Internet);
+    if(i1) permissionNames.add(PermissionName.Calendar);
+    if(i2) permissionNames.add(PermissionName.Camera);
+    if(i3) permissionNames.add(PermissionName.Contacts);
+    if(i4) permissionNames.add(PermissionName.Microphone);
+    if(i5) permissionNames.add(PermissionName.Location);
     message = '';
     var permissions = await Permission.requestPermissions(permissionNames);
     permissions.forEach((permission) {
@@ -264,42 +270,6 @@ class _MyAppState extends State<MyApp> {
     });
     setState(() {
       message;
-    });
-  }
-
-  requestSinglePermission() async {
-    final permissionStatus = await Permission.requestSinglePermission(permissionName);
-    setState(() {
-      message = permissionStatus.toString();
-    });
-  }
-
-  void radioValueChange(int value) {
-    setState(() {
-      radioValue = value;
-      switch (radioValue) {
-        case 0:
-          permissionName = PermissionName.Internet;
-          break;
-        case 1:
-          permissionName = PermissionName.Calendar;
-          break;
-        case 2:
-          permissionName = PermissionName.Camera;
-          break;
-        case 3:
-          permissionName = PermissionName.Contacts;
-          break;
-        case 4:
-          permissionName = PermissionName.Microphone;
-          break;
-        case 5:
-          permissionName = PermissionName.Location;
-          break;
-        case 6:
-          permissionName = PermissionName.WhenInUse;
-          break;
-      }
     });
   }
 }

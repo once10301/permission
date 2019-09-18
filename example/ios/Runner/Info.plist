@@ -22,6 +22,27 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your prompt</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Your prompt</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -46,28 +67,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>
