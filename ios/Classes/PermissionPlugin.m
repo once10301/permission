@@ -231,24 +231,13 @@ CLLocationManager *locationManager;
                     }
                 }];
             } else if ([@"Camera" isEqualToString:permissionName]){
-                AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-                switch (AVStatus) {
-                    case AVAuthorizationStatusAuthorized:
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                    if (granted){
                         list[i] = @0;
-                        break;
-                    case AVAuthorizationStatusDenied:
+                    } else {
                         list[i] = @1;
-                        break;
-                    case AVAuthorizationStatusNotDetermined:
-                        list[i] = @2;
-                        break;
-                    case AVAuthorizationStatusRestricted:
-                        list[i] = @1;
-                        break;
-                    default:
-                        list[i] = @2;
-                        break;
-                }
+                    }
+                }];
             } else if ([@"Contacts" isEqualToString:permissionName]){
                 if (@available(iOS 9.0, *)) {
                     CNContactStore *contactStore = [[CNContactStore alloc] init];
