@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool a0 = false, a1 = false, a2 = false, a3 = false, a4 = false, a5 = false, a6 = false, a7 = false, a8 = false;
-  bool i0 = false, i1 = false, i2 = false, i3 = false, i4 = false, i5 = false;
+  bool i0 = false, i1 = false, i2 = false, i3 = false, i4 = false, i5 = false, i6 = false;
   int radioValue = 0;
   PermissionName permissionName = PermissionName.Internet;
   String message = '';
@@ -199,6 +199,22 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
+              Offstage(
+                offstage: !Platform.isIOS,
+                child: Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: i6,
+                      onChanged: (v) {
+                        setState(() {
+                          i6 = v;
+                        });
+                      },
+                    ),
+                    Text('Storage'),
+                  ],
+                ),
+              ),
               RaisedButton(onPressed: getPermissionsStatus, child: new Text("Get permission status")),
               RaisedButton(onPressed: requestPermissions, child: new Text("Request permissions")),
               RaisedButton(onPressed: Permission.openSettings, child: new Text("Open settings")),
@@ -228,6 +244,7 @@ class _MyAppState extends State<MyApp> {
     if(i3) permissionNames.add(PermissionName.Contacts);
     if(i4) permissionNames.add(PermissionName.Microphone);
     if(i5) permissionNames.add(PermissionName.Location);
+    if(i6) permissionNames.add(PermissionName.Storage);
     message = '';
     List<Permissions> permissions = await Permission.getPermissionsStatus(permissionNames);
     permissions.forEach((permission) {
@@ -263,6 +280,7 @@ class _MyAppState extends State<MyApp> {
     if(i3) permissionNames.add(PermissionName.Contacts);
     if(i4) permissionNames.add(PermissionName.Microphone);
     if(i5) permissionNames.add(PermissionName.Location);
+    if(i6) permissionNames.add(PermissionName.Storage);
     message = '';
     var permissions = await Permission.requestPermissions(permissionNames);
     permissions.forEach((permission) {

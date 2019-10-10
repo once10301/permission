@@ -23,23 +23,27 @@ CLLocationManager *locationManager;
         NSDictionary *argsMap = call.arguments;
         NSArray *permissions = argsMap[@"permissions"];
         NSMutableArray *list = @[].mutableCopy;
-        for (NSString *permissionName in permissions) {
+        for(NSString *a in permissions){
+            [list addObject:@-1];
+        }
+        for (int i = 0; i < permissions.count; i++) {
+            NSString *permissionName = permissions[i];
             if ([@"Internet" isEqualToString:permissionName]) {
                 if (@available(iOS 9.0, *)) {
                     CTCellularData *cellularData = [[CTCellularData alloc] init];
                     cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
                         switch (state) {
                             case kCTCellularDataNotRestricted:
-                                [list insertObject:@0 atIndex:0];
+                                list[i] = @0;
                                 break;
                             case kCTCellularDataRestricted:
-                                [list insertObject:@1 atIndex:0];
+                                list[i] = @1;
                                 break;
                             case kCTCellularDataRestrictedStateUnknown:
-                                [list insertObject:@2 atIndex:0];
+                                list[i] = @2;
                                 break;
                             default:
-                                [list insertObject:@2 atIndex:0];
+                                list[i] = @2;
                                 break;
                         }
                     };
@@ -48,38 +52,38 @@ CLLocationManager *locationManager;
                 EKAuthorizationStatus EKStatus = [EKEventStore  authorizationStatusForEntityType:EKEntityTypeEvent];
                 switch (EKStatus) {
                     case EKAuthorizationStatusAuthorized:
-                        [list addObject:@0];
+                        list[i] = @0;
                         break;
                     case EKAuthorizationStatusDenied:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     case EKAuthorizationStatusNotDetermined:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                     case EKAuthorizationStatusRestricted:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     default:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                 }
             } else if ([@"Camera" isEqualToString:permissionName]){
-                PHAuthorizationStatus PHStatus = [PHPhotoLibrary authorizationStatus];
-                switch (PHStatus) {
-                    case PHAuthorizationStatusAuthorized:
-                        [list addObject:@0];
+                AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                switch (AVStatus) {
+                    case AVAuthorizationStatusAuthorized:
+                        list[i] = @0;
                         break;
-                    case PHAuthorizationStatusDenied:
-                        [list addObject:@1];
+                    case AVAuthorizationStatusDenied:
+                        list[i] = @1;
                         break;
-                    case PHAuthorizationStatusNotDetermined:
-                        [list addObject:@2];
+                    case AVAuthorizationStatusNotDetermined:
+                        list[i] = @2;
                         break;
-                    case PHAuthorizationStatusRestricted:
-                        [list addObject:@1];
+                    case AVAuthorizationStatusRestricted:
+                        list[i] = @1;
                         break;
                     default:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                 }
             } else if ([@"Contacts" isEqualToString:permissionName]){
@@ -87,19 +91,19 @@ CLLocationManager *locationManager;
                     CNAuthorizationStatus CNStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
                     switch (CNStatus) {
                         case CNAuthorizationStatusAuthorized:
-                            [list addObject:@0];
+                            list[i] = @0;
                             break;
                         case CNAuthorizationStatusDenied:
-                            [list addObject:@1];
+                            list[i] = @1;
                             break;
                         case CNAuthorizationStatusNotDetermined:
-                            [list addObject:@2];
+                            list[i] = @2;
                             break;
                         case CNAuthorizationStatusRestricted:
-                            [list addObject:@1];
+                            list[i] = @1;
                             break;
                         default:
-                            [list addObject:@2];
+                            list[i] = @2;
                             break;
                     }
                 }
@@ -107,47 +111,73 @@ CLLocationManager *locationManager;
                 AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
                 switch (AVStatus) {
                     case AVAuthorizationStatusAuthorized:
-                        [list addObject:@0];
+                        list[i] = @0;
                         break;
                     case AVAuthorizationStatusDenied:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     case AVAuthorizationStatusNotDetermined:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                     case AVAuthorizationStatusRestricted:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     default:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                 }
             } else if ([@"Location" isEqualToString:permissionName]){
                 CLAuthorizationStatus CLStatus =  [CLLocationManager authorizationStatus];
                 switch (CLStatus) {
                     case kCLAuthorizationStatusAuthorizedWhenInUse:
-                        [list addObject:@4];
+                        list[i] = @0;
                         break;
                     case kCLAuthorizationStatusAuthorizedAlways:
-                        [list addObject:@5];
+                        list[i] = @0;
                         break;
                     case kCLAuthorizationStatusDenied:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     case kCLAuthorizationStatusNotDetermined:
-                        [list addObject:@2];
+                        list[i] = @2;
                         break;
                     case kCLAuthorizationStatusRestricted:
-                        [list addObject:@1];
+                        list[i] = @1;
                         break;
                     default:
-                        [list addObject:@2];
+                        list[i] = @2;
+                        break;
+                }
+            } else if ([@"Storage" isEqualToString:permissionName]){
+                PHAuthorizationStatus PHStatus = [PHPhotoLibrary authorizationStatus];
+                switch (PHStatus) {
+                    case PHAuthorizationStatusAuthorized:
+                        list[i] = @0;
+                        break;
+                    case PHAuthorizationStatusDenied:
+                        list[i] = @1;
+                        break;
+                    case PHAuthorizationStatusNotDetermined:
+                        list[i] = @2;
+                        break;
+                    case PHAuthorizationStatusRestricted:
+                        list[i] = @1;
+                        break;
+                    default:
+                        list[i] = @2;
                         break;
                 }
             }
         }
         while (1) {
-            if (list.count == permissions.count) {
+            BOOL flag = true;
+            for (int i = 0; i < list.count; i++) {
+                NSNumber *a = list[i];
+                if(a.integerValue == -1) {
+                    flag = false;
+                }
+            }
+            if(flag){
                 result(list);
                 return;
             }
@@ -155,7 +185,12 @@ CLLocationManager *locationManager;
     } else if ([@"requestPermissions" isEqualToString:call.method]) {
         NSDictionary *argsMap = call.arguments;
         NSArray *permissions = argsMap[@"permissions"];
-        for (NSString *permissionName in permissions) {
+        NSMutableArray *list = @[].mutableCopy;
+        for(NSString *a in permissions){
+            [list addObject:@-1];
+        }
+        for (int i = 0; i < permissions.count; i++) {
+            NSString *permissionName = permissions[i];
             if ([@"Internet" isEqualToString:permissionName]) {
                 NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
                 NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -168,16 +203,16 @@ CLLocationManager *locationManager;
                     cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
                         switch (state) {
                             case kCTCellularDataNotRestricted:
-                                result(@0);
+                                list[i] = @0;
                                 break;
                             case kCTCellularDataRestricted:
-                                result(@1);
+                                list[i] = @1;
                                 break;
                             case kCTCellularDataRestrictedStateUnknown:
-                                result(@2);
+                                list[i] = @2;
                                 break;
                             default:
-                                result(@2);
+                                list[i] = @2;
                                 break;
                         }
                     };
@@ -186,61 +221,114 @@ CLLocationManager *locationManager;
                 EKEventStore *eventStore = [[EKEventStore alloc] init];
                 [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
                     if (error) {
-                        result(@2);
+                        list[i] = @2;
                         return;
                     }
                     if (granted) {
-                        result(@0);
+                        list[i] = @0;
                     } else {
-                        result(@1);
+                        list[i] = @1;
                     }
                 }];
             } else if ([@"Camera" isEqualToString:permissionName]){
-                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus PHStatus) {
-                    switch (PHStatus) {
-                        case PHAuthorizationStatusAuthorized:
-                            result(@0);
-                            break;
-                        case PHAuthorizationStatusDenied:
-                            result(@1);
-                            break;
-                        case PHAuthorizationStatusNotDetermined:
-                            result(@2);
-                            break;
-                        case PHAuthorizationStatusRestricted:
-                            result(@1);
-                            break;
-                        default:
-                            result(@2);
-                            break;
-                    }
-                }];
+                AVAuthorizationStatus AVStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+                switch (AVStatus) {
+                    case AVAuthorizationStatusAuthorized:
+                        list[i] = @0;
+                        break;
+                    case AVAuthorizationStatusDenied:
+                        list[i] = @1;
+                        break;
+                    case AVAuthorizationStatusNotDetermined:
+                        list[i] = @2;
+                        break;
+                    case AVAuthorizationStatusRestricted:
+                        list[i] = @1;
+                        break;
+                    default:
+                        list[i] = @2;
+                        break;
+                }
             } else if ([@"Contacts" isEqualToString:permissionName]){
                 if (@available(iOS 9.0, *)) {
                     CNContactStore *contactStore = [[CNContactStore alloc] init];
                     [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
                         if (error) {
-                            result(@2);
+                            list[i] = @2;
                             return;
                         }
                         if (granted) {
-                            result(@0);
+                            list[i] = @0;
                         } else {
-                            result(@1);
+                            list[i] = @1;
                         }
                     }];
                 }
             } else if ([@"Microphone" isEqualToString:permissionName]){
                 [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
                     if (granted) {
-                        result(@0);
+                        list[i] = @0;
                     } else {
-                        result(@1);
+                        list[i] = @1;
                     }
                 }];
             } else if ([@"Location" isEqualToString:permissionName]){
                 locationManager = [[CLLocationManager alloc] init];
                 [locationManager requestAlwaysAuthorization];
+                CLAuthorizationStatus CLStatus =  [CLLocationManager authorizationStatus];
+                switch (CLStatus) {
+                    case kCLAuthorizationStatusAuthorizedWhenInUse:
+                        list[i] = @0;
+                        break;
+                    case kCLAuthorizationStatusAuthorizedAlways:
+                        list[i] = @0;
+                        break;
+                    case kCLAuthorizationStatusDenied:
+                        list[i] = @1;
+                        break;
+                    case kCLAuthorizationStatusNotDetermined:
+                        list[i] = @2;
+                        break;
+                    case kCLAuthorizationStatusRestricted:
+                        list[i] = @1;
+                        break;
+                    default:
+                        list[i] = @2;
+                        break;
+                }
+            } else if ([@"Storage" isEqualToString:permissionName]){
+                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus PHStatus) {
+                    switch (PHStatus) {
+                        case PHAuthorizationStatusAuthorized:
+                            list[i] = @0;
+                            break;
+                        case PHAuthorizationStatusDenied:
+                            list[i] = @1;
+                            break;
+                        case PHAuthorizationStatusNotDetermined:
+                            list[i] = @2;
+                            break;
+                        case PHAuthorizationStatusRestricted:
+                            list[i] = @1;
+                            break;
+                        default:
+                            list[i] = @2;
+                            break;
+                    }
+                }];
+            }
+        }
+        while (1) {
+            BOOL flag = true;
+            for (int i = 0; i < list.count; i++) {
+                NSNumber *a = list[i];
+                if(a.integerValue == -1) {
+                    flag = false;
+                }
+            }
+            if(flag){
+                result(list);
+                return;
             }
         }
     } else if ([@"openSettings" isEqualToString:call.method]) {
