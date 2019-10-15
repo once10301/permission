@@ -29,7 +29,7 @@ enum PermissionName {
 }
 ```
 
-####Android:
+### Android
 
 Only dangerous permissions require user agreement. 
 
@@ -155,7 +155,7 @@ Make sure you add the needed permissions to your Android Manifest Permission.
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 
-#### iOS
+### iOS
 
  Add the needed permissions to your info.plist
 
@@ -178,7 +178,7 @@ Make sure you add the needed permissions to your Android Manifest Permission.
  <string>Your prompt</string>
 ```
 
-#### Methods
+### Methods
 
 ```dart
 import 'package:permission/permission.dart';
@@ -190,5 +190,3 @@ var permissionNames = await Permission.requestPermissions([PermissionName.Calend
 
 Permission.openSettings;
 ```
-
-#### 
