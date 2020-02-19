@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,32 +22,6 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Your prompt</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>Your prompt</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

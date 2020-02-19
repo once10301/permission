@@ -148,7 +148,9 @@ enum PermissionName {
   // Android
   SMS,
   // Android
-  Storage
+  Storage,
+  // Android
+  State,
 }
 
 enum PermissionStatus { allow, deny, notDecided, notAgain, whenInUse, always }
@@ -195,6 +197,9 @@ String getPermissionString(PermissionName permissions) {
       break;
     case PermissionName.Storage:
       res = 'Storage';
+      break;
+    case PermissionName.State:
+      res = 'State';
       break;
     default:
       res = '';

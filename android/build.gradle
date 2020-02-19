@@ -1,5 +1,5 @@
 group 'com.ly.permission'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.5.0'
     }
 }
 
@@ -25,14 +25,10 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 20
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
     }
-}
-
-dependencies {
-    implementation 'com.android.support:support-v4:27.1.1'
 }
