@@ -1,1 +1,1 @@
-{"_info":"// This is a generated file; do not edit or check into version control.","dependencyGraph":[{"name":"permission","dependencies":[]}]}
+{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"permission","path":"/Users/liuy/Xiyou/permission/","dependencies":[]}],"android":[{"name":"permission","path":"/Users/liuy/Xiyou/permission/","dependencies":[]}],"macos":[],"linux":[],"windows":[],"web":[]},"dependencyGraph":[{"name":"permission","dependencies":[]}],"date_created":"2020-03-04 11:19:56.385762","version":"1.14.6"}
